@@ -1,0 +1,13 @@
+uvod:
+Zadatak je 
+Detektovanje pokretnih linija sa video zapisa i
+Prepoznavanje brojeva koji prolaze iza pokretnih linija
+
+Cifre koje prođu ispod prve linije treba sabrati(plave), a cifre koje pređu ispod druge linije(zelene) treba oduzeti od konačnog rezultata 
+
+Dodatni problemi koji se nameću jeste to što se cifre preklapaju i što prolaze ispod linija.
+
+Metodologije:
+Sam video se podelio na frejmove i svi podaci na dalje su se  preuzimali sa pojedinačnih frejmova.
+Za različite delove probleme su se koristile različite metodologije.
+	Prilikom detekcije brojeva, uradjeno je 
