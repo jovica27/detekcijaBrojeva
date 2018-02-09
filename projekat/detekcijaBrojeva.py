@@ -14,6 +14,7 @@ import cv2
 
 import matplotlib.pylab as plt
 
+brojac=0;
 def makeRegions(img_col,frejm):
     
      img_gs = cv2.cvtColor(img_col, cv2.COLOR_RGB2GRAY) # konvert u grayscale
@@ -41,13 +42,18 @@ def makeRegions(img_col,frejm):
          if not (w<7 and h<15 or w>40 and h>40):
 
              img_cropped=image_bin_za_crop[y:y+h,x: x+w];
-             broj = {'id':-1,'center': (x+(w/2),y+(h/2)), 'size':(h, w),'img' : img_cropped,'frame' : frejm,'putanja':[]}
+             broj = {'id':-1,'center': (x+(w/2),y+(h/2)),'img' : img_cropped,'frame' : frejm,'putanja':[]}
              broj['putanja'].append(broj['center']);
             
              kont_brojevi.append(broj);
              img = cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
 
-     plt.imshow(img);
+    
+     global brojac;
+     brojac=brojac+1;
+     if(brojac<2):
+         plt.figure();
+         plt.imshow(img,'gray');
      
 
      return kont_brojevi;

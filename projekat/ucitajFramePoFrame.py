@@ -12,11 +12,11 @@ from detekcijaBrojeva import makeRegions
 from napraviLinije import makeLines
 
 
-def nadjiNajblizi2(broj,odgovarajuciBrojevi):
-    minDistance = distance(broj['center'],odgovarajuciBrojevi[0]['center'])
-    najblizi = odgovarajuciBrojevi[0]
+def najbliziBrojeviIzOkoline(broj,okolniBrojevi):
+    minDistance = distance(broj['center'],okolniBrojevi[0]['center'])
+    najblizi = okolniBrojevi[0]
     
-    for br in odgovarajuciBrojevi:
+    for br in okolniBrojevi:
         if (distance(br['center'],broj['center']) < minDistance):
             minDistance = distance(br['center'],broj['center'])
             najblizi = br
@@ -27,16 +27,16 @@ def nadjiNajblizi2(broj,odgovarajuciBrojevi):
     return najbliziNiz
             
 
-def nadjiNajblizi(broj,brojevi):
-    odgovarajuciBrojevi = []
+def brojeviIzOkoline(broj,brojevi):
+    okolniBrojevi = []
     for br in brojevi:
         if (distance(br['center'],broj['center'])<20):
-            odgovarajuciBrojevi.append(br)
+            okolniBrojevi.append(br)
             
-    if len(odgovarajuciBrojevi)>1 :
-        return nadjiNajblizi2(broj,odgovarajuciBrojevi)
+    if len(okolniBrojevi)>1 :
+        return najbliziBrojeviIzOkoline(broj,okolniBrojevi)
     else :
-        return odgovarajuciBrojevi
+        return okolniBrojevi
 
 
 def ucitajFrejmPoFrejm(model):
@@ -91,14 +91,14 @@ def ucitajFrejmPoFrejm(model):
        
         for broj in kont_brojevi :
                 
-                istiBrojUProslomFrejmu = nadjiNajblizi( broj, brojevi)
+                istiBrojUProslomFrejmu = brojeviIzOkoline( broj, brojevi)
                 
                 brojNadjenih = len(istiBrojUProslomFrejmu)
                 if brojNadjenih == 0:
                     id=id+1;
                     broj['id'] = id;
-                    broj['prosaoPrvu'] = False
-                    broj['prosaoDrugu'] = False
+                    broj['prosaoPlavu'] = False
+                    broj['prosaoZelenu'] = False
 
                     brojevi.append(broj)
                 elif brojNadjenih == 1:
@@ -123,11 +123,11 @@ def ucitajFrejmPoFrejm(model):
 #                
 #                #cv2.line(img, pnt1, el['center'], (0, 255, 25), 1)
 #                
-#                if (distancaBrojaOdLinije1 < 10 and not br['prosaoPrvu']):
+#                if (distancaBrojaOdLinije1 < 10 and not br['prosaoPlavu']):
 #                    print ("doslo do kolizije sa prvom, a id broja je: ", br['id'])
 #                    
-#                    if br['prosaoPrvu'] == False:
-#                        br['prosaoPrvu'] = True
+#                    if br['prosaoPlavu'] == False:
+#                        br['prosaoPlavu'] = True
 #                        pogodak= recDigit(br['img']);
 #                        #dodati vrednost na sumu
 #                        suma=suma+pogodak;
@@ -137,11 +137,11 @@ def ucitajFrejmPoFrejm(model):
 #                        #cv2.waitKey(0);
 #                    
 #                        
-#                if (distancaBrojaOdLinije2 < 10 and not br['prosaoDrugu']):
+#                if (distancaBrojaOdLinije2 < 10 and not br['prosaoZelenu']):
 #                    #print "doslo do kolizije sa drugom, a id broja je: ", br['id']
 #                    #cv2.imshow(str(br['id']),br['img'])
-#                    if br['prosaoDrugu'] == False:
-#                        br['prosaoDrugu'] = True
+#                    if br['prosaoZelenu'] == False:
+#                        br['prosaoZelenu'] = True
 #                        pogodak= recDigit(br['img']);
 #                        #oduzeti vrednost od sume
 #                        suma=suma-pogodak;

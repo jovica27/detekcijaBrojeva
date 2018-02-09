@@ -13,7 +13,10 @@ from sklearn.datasets import fetch_mldata
 import numpy as np
 import cv2
 
+import matplotlib.pylab as plt
+
 #isecenu sliku transformise u oblik pogodan da bi se vrsila predikcija() i vrsi predikciju
+
 def recDigit(model,cropped_img):
     
     dim = (28, 28)
@@ -28,11 +31,12 @@ def recDigit(model,cropped_img):
    
 
 #formira model
+brojac3 = 0
 def makeModelKNNP():
     mnist = fetch_mldata('MNIST original')
     data=mnist.data;
     labels = mnist.target.astype('int')
-    train_rank = 55000;
+    train_rank = 5000;
     test_rank = 100;
     #trainData=data;
     #trainLabels=labels;
@@ -81,7 +85,13 @@ def makeModelKNNP():
 
         
         ret,pom=cv2.threshold(pom,127, 255, cv2.THRESH_BINARY);
-
+        
+#        global brojac3;
+#        brojac3=brojac3+1;
+#        if(brojac3<15):
+#            plt.figure();
+#            plt.imshow(pom,'gray');
+         
         pom_bin=pom.copy();
         kernel=np.ones((3,3));
         pom=cv2.dilate(pom,kernel,iterations=1);
@@ -102,10 +112,19 @@ def makeModelKNNP():
                     
                    ##print("jeste broj")
                    pom_cropped=pom_bin[y:y+h,x: x+w];
+                   
+#                   if(brojac3<15):
+#                       plt.figure();
+#                       plt.imshow(pom_cropped,'gray');
                    ##print("sirina:%d,i visina:%d"%(w, h));
                    dim = (28, 28)
                    pom_cropped = cv2.resize(pom_cropped, dim, interpolation = cv2.INTER_CUBIC )
-
+                   
+#                   
+#                   if(brojac3<15):
+#                       plt.figure();
+#                       plt.imshow(pom_cropped,'gray');
+                       
                    pom_cropped=pom_cropped.flatten();
                    pom_cropped = np.reshape(pom_cropped, (1,-1))
                    

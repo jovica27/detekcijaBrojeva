@@ -11,6 +11,9 @@ import numpy as np
 #import imutils
 import cv2
 
+import matplotlib.pylab as plt
+
+brojac2=0;
 def postaviKrajeveLinije(niz_linija,linija_za_menjanje):
     #[xmin,ymin,xmax,ymax]
     #MAX
@@ -89,8 +92,16 @@ def makeLine(img,img_boja):
                 xmax=x2;
                 ymax=y2; 
                 
-     cv2.circle(img,(xmin,ymin), 10, (255,0,0), 1)
-     cv2.circle(img,(xmax,ymax), 10, (255,0,0), 1)
+#     cv2.circle(img,(xmin,ymin), 10, (255,0,0), 3)
+#     cv2.circle(img,(xmax,ymax), 10, (255,0,0), 3)
+     #iscrtavanje krajeva linije
+#     global brojac2;
+#     brojac2=brojac2+1;
+#     if(brojac2<15):
+#         plt.figure();
+#         plt.imshow(img,'gray');
+     
+        
      #dobijem formulu za pravu
      z=np.polyfit([xmin,xmax],[ymin,ymax],1);
 
